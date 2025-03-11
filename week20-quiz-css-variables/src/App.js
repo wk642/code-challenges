@@ -13,7 +13,7 @@ function App() {
     }
 
     function handleOSizeChange(event) {
-        // document.documentElement.style.setProperty('--logo-size', `${}vmin`)
+        document.documentElement.style.setProperty('--logo-size', `${event.target.value}vmin`)
     }
 
     function onSVGClick() {
@@ -35,7 +35,12 @@ function App() {
             <header className="App-header">
                 <p>
                     {/* BONUS: Dynamically resizing the logo with a custom CSS Property */}
-                    <input />
+                    <input 
+                        type="range" 
+                        min="0" 
+                        max="100" 
+                        defaultValue="50"
+                        onChange={handleOSizeChange}/>
                 </p>
                 <p onClick={onSVGClick}>
 
