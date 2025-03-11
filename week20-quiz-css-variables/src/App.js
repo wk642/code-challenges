@@ -4,6 +4,7 @@ import './App.css';
 function App() {
     useEffect(() => {
         // Step 2
+        const color = getComputedStyle(document.documentElement).getPropertyValue('--logo-color');
     }, []);
 
     function setColor(newColor) {
