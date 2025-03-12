@@ -1,6 +1,6 @@
 import { act } from "react"
 import MultipleFetches from "../MultipleFetches.js"
-import { render, fireEvent, cleanup } from "@testing-library/react"
+import { render, fireEvent, cleanup, screen } from "@testing-library/react"
 import "@testing-library/jest-dom"
 
 afterEach(cleanup)
@@ -12,6 +12,12 @@ test('starts without any post', () => {
   - Render the component
   - Assert that the post element doesn't exist
   */
+  // Render the component
+  render(<MultipleFetches />);
+  // Assert that the post element doesn't exist
+  expect(screen.queryByTestId("fetch-post")).toBeNull();
+  expect(screen.queryByTestId("comment-author")).toBeNull();
+  expect(screen.queryByTestId("multiple-fetch-success")).toBeNull();
 });
 
 test('after clicking on button, displays loading message', () => {
@@ -22,6 +28,13 @@ test('after clicking on button, displays loading message', () => {
   - Emmulate a button click using `fireEvent.click()`
   - Assert that loading message is displayed
   */
+
+  //Render the component
+  render(<MultipleFetches />);
+  //Emmulate a button click using `fireEvent.click()`
+  fireEvent.click(screen.getByText('Fetch post and comments'));
+  // Assert that loading message is displayed
+  expect(screen.getByTestId('fetch-loading-post')).toBeInTheDocument();
 });
 
 // Group all API tests together and clear each mock after each test.
@@ -68,7 +81,7 @@ describe('API tests', () => {
     - Check comment authors
     */
 
-    global.fetch.mockClear();
+    // global.fetch.mockClear();
 
   });
   
@@ -108,7 +121,7 @@ describe('API tests', () => {
     - Assert that post is displayed but comments show error
     */
 
-    global.fetch.mockClear();
+    // global.fetch.mockClear();
 
   });
   
@@ -135,6 +148,6 @@ describe('API tests', () => {
     */
   });
 
-  global.fetch.mockClear();
+  // global.fetch.mockClear();
 
 });
