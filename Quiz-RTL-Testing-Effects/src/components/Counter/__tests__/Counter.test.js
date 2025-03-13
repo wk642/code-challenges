@@ -1,14 +1,21 @@
 import React from 'react';
 import Counter from '../Counter';
-import { render, fireEvent, cleanup } from '@testing-library/react';
+import { render, fireEvent, cleanup, screen} from '@testing-library/react';
 
 afterEach(cleanup);
 
 // 1️⃣ Count starts with 0 and button is disabled
-// - Render the Counter component
-// - Find the count and button elements
-// - Assert that the count starts at 0
-// - Assert that the button is disabled initially
+test('Count starts with 0 and button is disabled', () =>{
+  // - Render the Counter component
+  render(<Counter />);
+  // - Find the count and button elements
+  const countElement = screen.getByTestId('count');
+  const buttonElement = screen.getByTestId('button');
+  // - Assert that the count starts at 0
+  expect(countElement.textContent).toBe('Clicked 0 times');
+  // - Assert that the button is disabled initially
+  expect(buttonElement).toBeDisabled;
+})
 
 // 2️⃣ Checking the checkbox enables the button
 // - Render the Counter component
